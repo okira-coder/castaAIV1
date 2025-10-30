@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.0 (2025-10-30)
+
+
+### Features
+
+* Implement complete Knowledge Base system - Add Knowledge Base CRUD operations with collections and files - Implement file upload with Cloudinary integration - Add comprehensive UI components for KB management - Fix database schema with new migrations - Add French translations for all KB features - Implement proper access control and permissions - Add file type validation and size limits - Fix fetcher utility to handle 204 responses - Add detailed logging for upload debugging - Include integration guide and migration scripts ([32a0aa4](https://github.com/okira-coder/castaAIV1/commit/32a0aa4c44fd552548532178c57fba0da5ce133e))
+
 ## [1.24.0](https://github.com/cgoinglove/better-chatbot/compare/v1.23.0...v1.24.0) (2025-10-06)
 
 
