@@ -66,7 +66,7 @@ export const BookmarkTable = pgTable(
       .references(() => UserTable.id, { onDelete: "cascade" }),
     itemId: uuid("item_id").notNull(),
     itemType: varchar("item_type", {
-      enum: ["agent", "workflow", "mcp"],
+      enum: ["agent", "workflow", "mcp", "collection"],
     }).notNull(),
     createdAt: timestamp("created_at")
       .notNull()
@@ -371,6 +371,59 @@ export const ChatExportCommentTable = pgTable("chat_export_comment", {
   updatedAt: timestamp("updated_at").notNull().default(sql`CURRENT_TIMESTAMP`),
 });
 
+// Knowledge Base Collections
+export const KnowledgeBaseCollectionTable = pgTable("knowledge_base_collection", {
+  id: uuid("id").primaryKey().notNull().defaultRandom(),
+  name: text("name").notNull(),
+  description: text("description"),
+  userId: uuid("user_id")
+    .notNull()
+    .references(() => UserTable.id, { onDelete: "cascade" }),
+  visibility: varchar("visibility", {
+    enum: ["public", "private"],
+  })
+    .notNull()
+    .default("private"),
+  createdAt: timestamp("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+  updatedAt: timestamp("updated_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+});
+
+export const KnowledgeBaseFileTable = pgTable("knowledge_base_file", {
+  id: uuid("id").primaryKey().notNull().defaultRandom(),
+  collectionId: uuid("collection_id")
+    .notNull()
+    .references(() => KnowledgeBaseCollectionTable.id, { onDelete: "cascade" }),
+  name: text("name").notNull(),
+  originalName: text("original_name").notNull(),
+  size: text("size").notNull(), // Store as string for large file sizes
+  type: text("type").notNull(), // MIME type
+  extension: text("extension").notNull(),
+  storageUrl: text("storage_url").notNull(), // URL to stored file
+  uploadedAt: timestamp("uploaded_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+});
+
+export const AgentCollectionTable = pgTable(
+  "agent_collection",
+  {
+    id: uuid("id").primaryKey().notNull().defaultRandom(),
+    agentId: uuid("agent_id")
+      .notNull()
+      .references(() => AgentTable.id, { onDelete: "cascade" }),
+    collectionId: uuid("collection_id")
+      .notNull()
+      .references(() => KnowledgeBaseCollectionTable.id, { onDelete: "cascade" }),
+    createdAt: timestamp("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+  },
+  (table) => [
+    unique().on(table.agentId, table.collectionId),
+    index("agent_collection_agent_idx").on(table.agentId),
+    index("agent_collection_collection_idx").on(table.collectionId),
+  ],
+);
+
 export type ArchiveEntity = typeof ArchiveTable.$inferSelect;
 export type ArchiveItemEntity = typeof ArchiveItemTable.$inferSelect;
 export type BookmarkEntity = typeof BookmarkTable.$inferSelect;
+export type KnowledgeBaseCollectionEntity = typeof KnowledgeBaseCollectionTable.$inferSelect;
+export type KnowledgeBaseFileEntity = typeof KnowledgeBaseFileTable.$inferSelect;
+export type AgentCollectionEntity = typeof AgentCollectionTable.$inferSelect;

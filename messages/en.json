@@ -42,7 +42,9 @@
     "createWithExample": "Create With Example",
     "resultsFound": "{count} results found",
     "youAreAnExpertIn": "You are an expert in {role}",
-    "sharedBy": "Shared by {userName}"
+    "sharedBy": "Shared by {userName}",
+    "active": "Active",
+    "loading": "Loading"
   },
   "Error": {},
   "Info": {
@@ -263,7 +265,10 @@
       "readyWhenYouAreJustStartTalking": "Ready when you are—just start talking.",
       "yourMicIsOff": "Your mic is off.",
       "preparing": "Preparing...",
-      "startVoiceChat": "Start voice chat?"
+      "startVoiceChat": "Start voice chat?",
+      "chatWithAgent": "Chat with {agentName}",
+      "selectAgent": "Select Agent",
+      "removeAgent": "Remove Agent"
     },
     "Thread": {
       "chat": "Chat",
@@ -332,6 +337,7 @@
     "toggleSidebar": "Toggle Sidebar",
     "newChat": "New Chat",
     "mcpConfiguration": "MCP Configuration",
+    "knowledgeBases": "Knowledge Bases",
     "agents": "Agents",
     "newAgent": "Create Agent",
     "createAgent": "Create an agent",
@@ -436,6 +442,7 @@
     "noAvailableAgents": "No available agents",
     "noAvailableAgentsDescription": "Ask your admin to share agents with you",
     "noDescription": "No description provided",
+    "noAgentsFound": "No agents found",
     "bookmarkAdded": "Agent bookmarked",
     "bookmarkRemoved": "Bookmark removed",
     "bookmarkedAgent": "Bookmarked agent",

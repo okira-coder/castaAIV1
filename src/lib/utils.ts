@@ -28,6 +28,11 @@ export const fetcher = async (url: string, options?: RequestInit) => {
     throw error;
   }
 
+  // Pour les réponses sans contenu (204 No Content), on retourne un objet success
+  if (res.status === 204 || res.headers.get('content-length') === '0') {
+    return { success: true };
+  }
+
   return res.json();
 };
 

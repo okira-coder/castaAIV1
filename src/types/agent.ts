@@ -1,6 +1,7 @@
 import z from "zod";
 import { ChatMentionSchema } from "./chat";
 import { VisibilitySchema } from "./util";
+import { AgentKnowledgeBaseConfigSchema } from "../lib/knowledge-base/types";
 
 export type AgentIcon = {
   type: "emoji";
@@ -12,6 +13,7 @@ export const AgentInstructionsSchema = z.object({
   role: z.string().optional(),
   systemPrompt: z.string().optional(),
   mentions: z.array(ChatMentionSchema).optional(),
+  knowledgeBase: AgentKnowledgeBaseConfigSchema.optional(),
 });
 
 export const AgentCreateSchema = z
